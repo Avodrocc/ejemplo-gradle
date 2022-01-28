@@ -18,6 +18,7 @@ pipeline {
                         withSonarQubeEnv('sonar') {
                             sh "echo 'Calling sonar by ID!'"
                             // Run Maven on a Unix agent to execute Sonar.
+                            sh 'chmod +x ./gradlew'
                             sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                         }
                     }
@@ -52,7 +53,7 @@ pipeline {
                         sh 'nohup bash java -jar DevOpsUsach2020-0.0.1.jar & >/dev/null'
                     }
                     stage("Paso 7: Testear Artefacto - Dormir(Esperar 20sg) "){
-                       sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+                       sh "sleep 30 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
                     }
                 }
             }
